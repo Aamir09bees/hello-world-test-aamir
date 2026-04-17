@@ -4,10 +4,17 @@ name: Hello World
 
 on:
   push:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Custom message to print'
+        required: false
+        default: 'Hello World from CloudBees!'
 
 jobs:
   hello:
     steps:
       - name: Say Hello
         uses: docker://alpine:latest
-        run: echo "Hello World from CloudBees!"
+        run: |
+          echo "${{ cloudbees.inputs.message }}"
